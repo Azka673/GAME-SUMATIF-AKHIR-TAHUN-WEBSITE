@@ -1,0 +1,400 @@
+/* ========================================
+   LOST & FOUND: ECHO WORLDS - MAIN STYLES
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Colors */
+    --primary-color: #1a1a2e;
+    --secondary-color: #16213e;
+    --accent-color: #0f3460;
+    --highlight-color: #e94560;
+    --success-color: #2ecc71;
+    --warning-color: #f39c12;
+    --danger-color: #e74c3c;
+    --text-light: #ecf0f1;
+    --text-dark: #2c3e50;
+    
+    /* Rarity Colors */
+    --rarity-common: #95a5a6;
+    --rarity-uncommon: #2ecc71;
+    --rarity-rare: #3498db;
+    --rarity-epic: #9b59b6;
+    --rarity-legendary: #f1c40f;
+    
+    /* Emotion Colors */
+    --emotion-happy: #f39c12;
+    --emotion-sad: #3498db;
+    --emotion-angry: #e74c3c;
+    --emotion-mysterious: #9b59b6;
+    --emotion-nostalgic: #e67e22;
+    --emotion-scared: #34495e;
+    
+    /* Spacing */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.3);
+    
+    /* Font */
+    --font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-mono: 'Courier New', monospace;
+}
+
+body {
+    font-family: var(--font-primary);
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    overflow: hidden;
+    user-select: none;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+/* ========================================
+   GAME CONTAINER
+   ======================================== */
+
+.game-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.game-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background-color: #0f1419;
+}
+
+/* ========================================
+   LOADING SCREEN
+   ======================================== */
+
+.loading-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.loading-screen.hidden {
+    display: none;
+}
+
+.loading-content {
+    text-align: center;
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px;
+    border: 4px solid rgba(14, 165, 233, 0.3);
+    border-top-color: #0ea5e9;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+#loadingText {
+    font-size: 18px;
+    color: var(--text-light);
+    margin-bottom: 20px;
+}
+
+.loading-progress {
+    width: 300px;
+    height: 8px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+#loadingBar {
+    height: 100%;
+    background: linear-gradient(90deg, #0ea5e9, #06b6d4);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+/* ========================================
+   MENU SCREEN
+   ======================================== */
+
+.menu-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.menu-screen.hidden {
+    display: none;
+}
+
+.menu-container {
+    text-align: center;
+    max-width: 600px;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.game-title {
+    font-size: 48px;
+    font-weight: bold;
+    color: var(--highlight-color);
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
+}
+
+.game-subtitle {
+    font-size: 20px;
+    color: var(--text-light);
+    margin-bottom: 40px;
+    opacity: 0.8;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.menu-button {
+    padding: 15px 40px;
+    font-size: 18px;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+}
+
+.menu-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+}
+
+.menu-button:active {
+    transform: translateY(0);
+}
+
+.game-stats {
+    color: var(--text-light);
+    opacity: 0.7;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* ========================================
+   SETTINGS SCREEN
+   ======================================== */
+
+.settings-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.settings-screen.hidden {
+    display: none;
+}
+
+.settings-container {
+    background: var(--secondary-color);
+    padding: 40px;
+    border-radius: var(--radius-lg);
+    width: 90%;
+    max-width: 400px;
+    box-shadow: var(--shadow-lg);
+}
+
+.settings-container h2 {
+    margin-bottom: 30px;
+    color: var(--highlight-color);
+    text-align: center;
+}
+
+.settings-group {
+    margin-bottom: 20px;
+}
+
+.settings-group label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-light);
+    cursor: pointer;
+}
+
+.settings-group input[type="range"] {
+    flex: 1;
+    height: 6px;
+    cursor: pointer;
+}
+
+.settings-group input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.settings-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.settings-buttons .menu-button {
+    flex: 1;
+}
+
+/* ========================================
+   UI OVERLAY
+   ======================================== */
+
+.ui-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.ui-overlay > * {
+    pointer-events: auto;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+.visible {
+    display: block !important;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--highlight-color);
+}

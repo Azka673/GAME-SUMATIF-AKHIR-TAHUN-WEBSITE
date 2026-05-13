@@ -1,0 +1,486 @@
+/* ========================================
+   LOST & FOUND: ECHO WORLDS - UI STYLES
+   ======================================== */
+
+/* ========================================
+   HUD (Heads Up Display)
+   ======================================== */
+
+.hud {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(26, 26, 46, 0.8);
+    border: 2px solid #0ea5e9;
+    border-radius: 8px;
+    padding: 15px;
+    min-width: 200px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(14, 165, 233, 0.2);
+}
+
+.hud-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(14, 165, 233, 0.3);
+    font-size: 14px;
+}
+
+.hud-item:last-child {
+    border-bottom: none;
+}
+
+.hud-item .label {
+    color: rgba(236, 240, 241, 0.7);
+    font-weight: 500;
+}
+
+.hud-item .value {
+    color: #0ea5e9;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* ========================================
+   MINIMAP
+   ======================================== */
+
+.minimap {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 200px;
+    height: 200px;
+    background: rgba(26, 26, 46, 0.9);
+    border: 2px solid #0ea5e9;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(14, 165, 233, 0.2);
+}
+
+.minimap-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* ========================================
+   INVENTORY UI
+   ======================================== */
+
+.inventory-ui {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: 400px;
+    max-height: 500px;
+    background: rgba(26, 26, 46, 0.95);
+    border: 2px solid #0ea5e9;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(14, 165, 233, 0.2);
+    animation: slideIn 0.3s ease;
+}
+
+.inventory-ui.hidden {
+    display: none;
+}
+
+.inventory-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+    color: white;
+    padding: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.inventory-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.close-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+}
+
+.close-btn:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding: 15px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.inventory-slot {
+    aspect-ratio: 1;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(14, 165, 233, 0.5);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+    overflow: hidden;
+}
+
+.inventory-slot:hover {
+    border-color: #0ea5e9;
+    background: rgba(14, 165, 233, 0.1);
+    box-shadow: 0 0 10px rgba(14, 165, 233, 0.3);
+}
+
+.inventory-slot.empty {
+    border-style: dashed;
+}
+
+.inventory-item {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 24px;
+    padding: 5px;
+}
+
+.inventory-item-name {
+    font-size: 10px;
+    color: #0ea5e9;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.inventory-item-rarity {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.rarity-common { background: var(--rarity-common); }
+.rarity-uncommon { background: var(--rarity-uncommon); }
+.rarity-rare { background: var(--rarity-rare); }
+.rarity-epic { background: var(--rarity-epic); }
+.rarity-legendary { background: var(--rarity-legendary); }
+
+/* ========================================
+   DIALOGUE UI
+   ======================================== */
+
+.dialogue-ui {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 600px;
+    background: rgba(26, 26, 46, 0.95);
+    border: 2px solid var(--highlight-color);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(233, 69, 96, 0.2);
+    animation: fadeInUp 0.3s ease;
+}
+
+.dialogue-ui.hidden {
+    display: none;
+}
+
+.dialogue-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.dialogue-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, var(--highlight-color), #ff6b6b);
+    color: white;
+    padding: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.npc-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.dialogue-text {
+    padding: 20px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-light);
+    min-height: 60px;
+}
+
+.dialogue-choices {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 20px 20px;
+}
+
+.dialogue-choice {
+    padding: 12px 16px;
+    background: rgba(14, 165, 233, 0.2);
+    border: 1px solid #0ea5e9;
+    border-radius: 4px;
+    color: #0ea5e9;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.dialogue-choice:hover {
+    background: rgba(14, 165, 233, 0.4);
+    box-shadow: 0 0 10px rgba(14, 165, 233, 0.3);
+}
+
+/* ========================================
+   NOTIFICATIONS
+   ======================================== */
+
+.notification-container {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.notification {
+    padding: 15px 20px;
+    background: rgba(26, 26, 46, 0.95);
+    border-left: 4px solid #0ea5e9;
+    border-radius: 4px;
+    color: var(--text-light);
+    font-size: 14px;
+    box-shadow: var(--shadow-md);
+    animation: slideIn 0.3s ease;
+    pointer-events: auto;
+}
+
+.notification.success {
+    border-left-color: var(--success-color);
+    background: rgba(46, 204, 113, 0.1);
+}
+
+.notification.warning {
+    border-left-color: var(--warning-color);
+    background: rgba(243, 156, 18, 0.1);
+}
+
+.notification.error {
+    border-left-color: var(--danger-color);
+    background: rgba(231, 76, 60, 0.1);
+}
+
+.notification.info {
+    border-left-color: #0ea5e9;
+    background: rgba(14, 165, 233, 0.1);
+}
+
+/* ========================================
+   CONTROL GUIDE
+   ======================================== */
+
+.control-guide {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(26, 26, 46, 0.8);
+    border: 2px solid #0ea5e9;
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 12px;
+    min-width: 150px;
+    box-shadow: 0 0 20px rgba(14, 165, 233, 0.2);
+}
+
+.guide-item {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    gap: 10px;
+    padding: 5px 0;
+    align-items: center;
+}
+
+.guide-item .key {
+    background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-weight: 600;
+    font-size: 11px;
+    text-align: center;
+}
+
+.guide-item .action {
+    color: rgba(236, 240, 241, 0.8);
+}
+
+/* ========================================
+   DEBUG CONSOLE
+   ======================================== */
+
+.debug-console {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 400px;
+    background: rgba(26, 26, 46, 0.95);
+    border: 2px solid #0ea5e9;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-lg);
+    display: none;
+    z-index: 500;
+}
+
+.debug-console.visible {
+    display: flex;
+}
+
+.console-header {
+    background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+    color: white;
+    padding: 12px 15px;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.console-output {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 15px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: #0ea5e9;
+    line-height: 1.5;
+}
+
+.console-output .log-entry {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.console-output .log-error {
+    color: var(--danger-color);
+}
+
+.console-output .log-warning {
+    color: var(--warning-color);
+}
+
+.console-output .log-success {
+    color: var(--success-color);
+}
+
+/* ========================================
+   ADAPTIVE STYLES
+   ======================================== */
+
+/* Mobile devices */
+@media (max-width: 768px) {
+    .hud {
+        top: 10px;
+        left: 10px;
+        min-width: 150px;
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    .minimap {
+        top: 10px;
+        right: 10px;
+        width: 120px;
+        height: 120px;
+    }
+
+    .inventory-ui {
+        width: 90%;
+        max-width: none;
+        bottom: 10px;
+        left: 10px;
+    }
+
+    .inventory-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .control-guide {
+        bottom: 10px;
+        right: 10px;
+        font-size: 11px;
+    }
+
+    .dialogue-ui {
+        width: 95%;
+        bottom: 10px;
+    }
+}
+
+/* Landscape mobile */
+@media (max-width: 480px) and (orientation: landscape) {
+    .hud {
+        min-width: 120px;
+        padding: 8px;
+    }
+
+    .minimap {
+        width: 100px;
+        height: 100px;
+    }
+
+    .inventory-ui {
+        max-width: 250px;
+        max-height: 300px;
+    }
+
+    .inventory-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
+        padding: 10px;
+    }
+}
