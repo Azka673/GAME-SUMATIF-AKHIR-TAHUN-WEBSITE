@@ -1,0 +1,124 @@
+/* Animations */
+@keyframes bgPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes menuBgCycle {
+  0%, 100% { filter: hue-rotate(0deg) brightness(0.6); }
+  33% { filter: hue-rotate(30deg) brightness(0.5); }
+  66% { filter: hue-rotate(-20deg) brightness(0.55); }
+}
+
+@keyframes notifSlide {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes notifFade {
+  to { opacity: 0; transform: translateX(20px); }
+}
+
+@keyframes echoFade {
+  0% { opacity: 0; transform: scale(0.95); }
+  20% { opacity: 1; transform: scale(1); }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes dreamPulse {
+  0%, 100% { opacity: 0.7; text-shadow: 0 0 20px var(--neon-purple); }
+  50% { opacity: 1; text-shadow: 0 0 40px var(--neon-purple); }
+}
+
+@keyframes glitchScan {
+  0% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(4px); opacity: 0.8; }
+  100% { transform: translateY(-2px); opacity: 0.5; }
+}
+
+@keyframes glitchText {
+  0% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
+  20% { clip-path: inset(10% 0 80% 0); transform: translate(2px, -2px); }
+  40% { clip-path: inset(60% 0 20% 0); transform: translate(-2px, 1px); }
+  60% { clip-path: inset(30% 0 40% 0); transform: translate(1px, -1px); }
+  80% { clip-path: inset(70% 0 5% 0); transform: translate(0); }
+  100% { clip-path: inset(0); transform: translate(0); }
+}
+
+.logo-glitch::before,
+.logo-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0; right: 0;
+  overflow: hidden;
+}
+
+.logo-glitch::before {
+  color: var(--neon-pink);
+  animation: glitchText 3s infinite;
+  clip-path: inset(0);
+}
+
+.logo-glitch::after {
+  color: var(--neon-cyan);
+  animation: glitchText 2s infinite reverse;
+}
+
+.fade-in { animation: fadeIn 0.5s ease forwards; }
+.fade-out { animation: fadeOut 0.5s ease forwards; }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.screen-transition {
+  animation: screenSwap 0.6s ease;
+}
+
+@keyframes screenSwap {
+  0% { opacity: 1; filter: blur(0); }
+  50% { opacity: 0; filter: blur(8px); }
+  100% { opacity: 1; filter: blur(0); }
+}
+
+@keyframes panelSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pauseMenuSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.panel-enter {
+  animation: panelSlideIn 0.4s ease-out forwards;
+}
+
+.pause-menu:not(.hidden) {
+  animation: pauseMenuSlideIn 0.3s ease-out;
+}
