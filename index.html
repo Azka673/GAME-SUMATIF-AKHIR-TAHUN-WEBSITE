@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lost & Found: Echo Worlds</title>
+  <link rel="icon" type="image/png" href="assets/icons/favicon.png">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/ui.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/effects.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="screen active">
+    <div class="loading-bg"></div>
+    <div class="loading-content">
+      <div class="logo-glitch" data-text="LOST & FOUND">LOST & FOUND</div>
+      <div class="logo-sub">ECHO WORLDS</div>
+      <div class="loading-bar-wrap">
+        <div class="loading-bar"><div class="loading-bar-fill" id="loading-fill"></div></div>
+      </div>
+      <div class="loading-text" id="loading-text">Initializing Returners Protocol...</div>
+    </div>
+  </div>
+
+  <!-- Main Menu -->
+  <div id="main-menu" class="screen">
+    <div class="menu-bg" id="menu-bg"></div>
+    <div class="menu-particles" id="menu-particles"></div>
+    <div class="menu-content">
+      <div class="menu-logo">
+        <div class="logo-main">LOST & FOUND</div>
+        <div class="logo-echo">ECHO WORLDS</div>
+        <div class="logo-tagline">The Returners — Kembalikan Barang Hilang di Echo Academy</div>
+      </div>
+      <div class="menu-tabs">
+        <button class="tab-btn active" id="tab-play">Bermain</button>
+        <button class="tab-btn" id="tab-skilltree">Skill Tree</button>
+        <button class="tab-btn" id="tab-shop">Shop</button>
+      </div>
+      <div class="menu-buttons">
+        <button class="menu-btn primary" id="btn-start">Start Game</button>
+        <button class="menu-btn" id="btn-continue" disabled>Continue</button>
+        <button class="menu-btn" id="btn-settings">Settings</button>
+        <button class="menu-btn" id="btn-credits">Credits</button>
+        <div id="skilltree-preview" class="menu-content-area hidden">
+          <h3>Skill Tree</h3>
+          <p style="font-size: 0.9rem; color: #00f5ff;">Tingkatkan kemampuan dengan Skill Point saat naik level!</p>
+          <div id="skilltree-menu-preview" style="font-size: 0.85rem; color: #aaa;"></div>
+        </div>
+        <div id="shop-preview" class="menu-content-area hidden">
+          <h3>Toko Sekolah</h3>
+          <p style="font-size: 0.9rem; color: #00f5ff;">Beli barang dengan uang dari menyelesaikan tugas NPC!</p>
+          <div id="shop-menu-preview" style="font-size: 0.85rem; color: #aaa;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div id="settings-modal" class="modal hidden">
+    <div class="modal-panel hologram">
+      <h2>Settings</h2>
+      <label class="setting-row"><span>Master Volume</span><input type="range" id="vol-master" min="0" max="100" value="70"></label>
+      <label class="setting-row"><span>Music</span><input type="range" id="vol-music" min="0" max="100" value="60"></label>
+      <label class="setting-row"><span>SFX</span><input type="range" id="vol-sfx" min="0" max="100" value="80"></label>
+      <label class="setting-row"><span>Particle Effects</span><input type="checkbox" id="particles-toggle" checked></label>
+      <button class="menu-btn" id="btn-settings-close">Close</button>
+    </div>
+  </div>
+
+  <!-- Credits Modal -->
+  <div id="credits-modal" class="modal hidden">
+    <div class="modal-panel hologram">
+      <h2>Credits</h2>
+      <p class="credits-text">Lost & Found: Echo Worlds</p>
+      <p class="credits-text">The Returners Organization</p>
+      <p class="credits-text">Built with HTML, CSS & JavaScript</p>
+      <p class="credits-text">Echo Worlds Engine v1.0</p>
+      <button class="menu-btn" id="btn-credits-close">Close</button>
+    </div>
+  </div>
+
+  <!-- Game Container -->
+  <div id="game-container" class="hidden">
+    <canvas id="game-canvas" tabindex="0"></canvas>
+    <canvas id="effects-canvas"></canvas>
+
+    <!-- HUD -->
+    <div id="hud" class="hud">
+      <div class="hud-top">
+        <div class="hud-stat"><span class="label">UANG</span><span id="hud-money" class="value money">0</span></div>
+        <div class="hud-stat"><span class="label">REP</span><span id="hud-rep" class="value">50</span></div>
+        <div class="hud-stat"><span class="label">JAM</span><span id="hud-time" class="value">08:00</span></div>
+        <div class="hud-stat"><span class="label">LV</span><span id="hud-level" class="value">1</span></div>
+        <div class="hud-stat"><span class="label">XP</span><span id="hud-xp" class="value">0/100</span></div>
+        <div class="hud-zone" id="hud-zone">Lobby · Lt.1</div>
+      </div>
+      <div class="hud-xp-bar"><div class="xp-fill" id="xp-fill"></div></div>
+      <div class="hud-stamina"><div class="stamina-fill" id="stamina-fill"></div></div>
+      <div class="quest-tracker hologram" id="quest-tracker">
+        <span class="quest-label">TUGAS AKTIF</span>
+        <span id="quest-text">Jelajahi sekolah dan kembalikan barang hilang</span>
+      </div>
+    </div>
+
+    <!-- Minimap -->
+    <div id="minimap-container" class="minimap-container hologram">
+      <canvas id="minimap-canvas" width="180" height="140"></canvas>
+      <div class="minimap-legend">
+        <span class="dot player-dot"></span> You
+        <span class="dot npc-dot"></span> NPC
+        <span class="dot item-dot"></span> Item
+        <span class="dot portal-dot"></span> Portal
+      </div>
+    </div>
+
+    <!-- Memory Echo Overlay -->
+    <div id="echo-overlay" class="echo-overlay hidden">
+      <div class="echo-vignette"></div>
+      <div class="echo-text" id="echo-text"></div>
+      <div class="echo-clue" id="echo-clue"></div>
+    </div>
+
+    <!-- Dialogue Box -->
+    <div id="dialogue-box" class="dialogue-box hidden hologram">
+      <div class="dialogue-portrait" id="dialogue-portrait"></div>
+      <div class="dialogue-content">
+        <div class="dialogue-name" id="dialogue-name">NPC</div>
+        <div class="dialogue-text" id="dialogue-text"></div>
+        <div class="dialogue-choices" id="dialogue-choices"></div>
+      </div>
+    </div>
+
+    <!-- Inventory Panel -->
+    <div id="inventory-panel" class="panel hidden hologram">
+      <h3>Inventory — Lost Items</h3>
+      <div class="inventory-grid" id="inventory-grid"></div>
+      <div class="inventory-detail" id="inventory-detail">
+        <p>Select an item to inspect memory echo</p>
+      </div>
+    </div>
+
+    <!-- Skill Tree Panel -->
+    <div id="skill-panel" class="panel hidden hologram">
+      <h3>Skill Tree — The Returners</h3>
+      <div class="skill-branches" id="skill-branches"></div>
+      <div class="skill-points">Skill Point (naik level): <span id="skill-points">0</span></div>
+    </div>
+
+    <!-- Shop Panel -->
+    <div id="shop-panel" class="panel hidden hologram">
+      <h3>Shop Sekolah</h3>
+      <p class="shop-wallet">Uang kamu: Rp <span id="shop-money">0</span></p>
+      <div id="shop-list" class="shop-list"></div>
+    </div>
+
+    <!-- Investigation Panel -->
+    <div id="investigate-panel" class="panel hidden hologram">
+      <h3>Detective Board</h3>
+      <div id="clue-list"></div>
+      <div id="evidence-board"></div>
+    </div>
+
+    <!-- Objective Panel -->
+    <div id="objective-panel" class="panel hidden hologram">
+      <h3>📋 Tujuan Mu</h3>
+      <div id="objective-list" class="objective-list"></div>
+      <div id="objective-progress" class="objective-progress"></div>
+    </div>
+
+    <!-- Controls Hint -->
+    <div id="controls-hint" class="controls-hint">
+      WASD Gerak | E Interaksi | I Inventori | K Skill | P Shop | L Tujuan | M Peta | F CCTV | B Detektif
+    </div>
+
+    <!-- Pause Menu -->
+    <div id="pause-menu" class="pause-menu hidden">
+      <div class="pause-overlay"></div>
+      <div class="pause-panel hologram">
+        <h2>⏸ GAME PAUSED</h2>
+        <button class="menu-btn" id="btn-resume">Resume</button>
+        <button class="menu-btn" id="btn-pause-settings">Settings</button>
+        <button class="menu-btn" id="btn-save-exit">Save & Exit</button>
+        <button class="pause-mobile-btn" id="btn-pause-mobile" title="Mobile controls">📱</button>
+      </div>
+    </div>
+
+    <!-- Notifications -->
+    <div id="notifications"></div>
+
+    <!-- Dream World Overlay -->
+    <div id="dream-overlay" class="dream-overlay hidden">
+      <div class="dream-title" id="dream-title">Dream Entry</div>
+    </div>
+
+    <!-- Timeline Glitch Effect -->
+    <div id="timeline-glitch" class="timeline-glitch hidden"></div>
+
+    <!-- Mobile Joystick -->
+    <div id="mobile-joystick" class="mobile-joystick hidden">
+      <div class="joystick-container">
+        <div class="joystick-base">
+          <div class="joystick-stick"></div>
+        </div>
+      </div>
+      <div class="mobile-buttons">
+        <button class="mobile-btn mobile-interact" id="mobile-interact" title="Interact">E</button>
+        <button class="mobile-btn mobile-sprint" id="mobile-sprint" title="Sprint">RUN</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script type="module" src="js/game.js"></script>
+</body>
+</html>
